@@ -60,6 +60,7 @@ export class DoctorService {
               name: true,
             },
           },
+          department: true,
         },
       });
 
@@ -110,7 +111,7 @@ export class DoctorService {
       where: { id: doctorId },
       data: {
         ...(data.specialization && { specialization: data.specialization }),
-        ...(data.department && { department: data.department }),
+        ...(data.department && { departmentId: data.department }),
         ...(data.phone && { phone: data.phone }),
       },
       include: {
@@ -121,6 +122,7 @@ export class DoctorService {
             name: true,
           },
         },
+        department: true,
       },
     });
 
@@ -161,6 +163,7 @@ export class DoctorService {
             name: true,
           },
         },
+        department: true,
       },
     });
 
@@ -189,6 +192,7 @@ export class DoctorService {
             name: true,
           },
         },
+        department: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -210,6 +214,7 @@ export class DoctorService {
             name: true,
           },
         },
+        department: true,
       },
     });
   }

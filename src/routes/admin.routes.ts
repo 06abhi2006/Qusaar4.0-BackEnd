@@ -50,7 +50,7 @@ router.get('/doctors', async (_req: Request, res: Response) => {
       name: doctor.user.name,
       email: doctor.user.email,
       specialization: doctor.specialization,
-      department: doctor.department,
+      department: doctor.department ? doctor.department.name : '', // Handle relation
       phone: doctor.phone,
       available: doctor.available,
     }));
@@ -90,7 +90,7 @@ router.post(
         name: doctor.user.name,
         email: doctor.user.email,
         specialization: doctor.specialization,
-        department: doctor.department,
+        department: doctor.department ? doctor.department.name : '',
         phone: doctor.phone,
         available: doctor.available,
       };
@@ -135,7 +135,7 @@ router.put(
         name: doctor.user.name,
         email: doctor.user.email,
         specialization: doctor.specialization,
-        department: doctor.department,
+        department: doctor.department ? doctor.department.name : '',
         phone: doctor.phone,
         available: doctor.available,
       };
@@ -355,7 +355,7 @@ router.patch(
         name: doctor.user.name,
         email: doctor.user.email,
         specialization: doctor.specialization,
-        department: doctor.department,
+        department: doctor.department ? doctor.department.name : '',
         phone: doctor.phone,
         available: doctor.available,
       };

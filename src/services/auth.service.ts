@@ -59,7 +59,7 @@ export class AuthService {
         status: 'active',
       },
       include: {
-        doctor: true,
+        doctor: { include: { department: true } },
       },
     });
 
@@ -91,7 +91,7 @@ export class AuthService {
     // Add doctor-specific fields if applicable
     if (user.role === 'doctor' && user.doctor) {
       userResponse.specialization = user.doctor.specialization;
-      userResponse.department = user.doctor.department;
+      userResponse.department = user.doctor.department ? user.doctor.department.name : undefined;
     }
 
     // Add patient-specific fields which might have been just created
@@ -139,7 +139,7 @@ export class AuthService {
       user = await prisma.user.findUnique({
         where: { email: email.toLowerCase() },
         include: {
-          doctor: true,
+          doctor: { include: { department: true } },
           patient: true,
         },
       });
@@ -150,7 +150,7 @@ export class AuthService {
         include: {
           user: {
             include: {
-              doctor: true,
+              doctor: { include: { department: true } },
               patient: true
             }
           }
@@ -202,7 +202,7 @@ export class AuthService {
     // Add doctor-specific fields if applicable
     if (user.role === 'doctor' && user.doctor) {
       userResponse.specialization = user.doctor.specialization;
-      userResponse.department = user.doctor.department;
+      userResponse.department = user.doctor.department ? user.doctor.department.name : undefined;
     }
 
     // Add patient-specific fields

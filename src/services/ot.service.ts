@@ -68,7 +68,7 @@ export const OTService = {
             where,
             orderBy: { startTime: 'asc' },
             include: {
-                patient: { select: { name: true, id: true } },
+                patient: { include: { user: { select: { name: true } } } },
                 doctor: { include: { user: { select: { name: true } } } }
             }
         });

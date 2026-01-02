@@ -128,7 +128,7 @@ router.get('/doctors', async (_req: Request, res: Response) => {
       name: doctor.user.name,
       email: doctor.user.email,
       specialization: doctor.specialization,
-      department: doctor.department,
+      department: doctor.department ? doctor.department.name : '',
       phone: doctor.phone,
       available: doctor.available,
     }));

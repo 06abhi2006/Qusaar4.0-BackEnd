@@ -15,10 +15,9 @@ router.get('/map', async (_req: Request, res: Response) => {
                 doctors: {
                     select: {
                         id: true,
-                        user: { select: { name: true } },
+                        user: { select: { name: true, status: true } }, // Moved status to user select
                         cabinNumber: true,
-                        status: true, // Assuming from User but doctor doesn't have status, User does
-                        specialization: true,
+                        specialization: true, // Removed status from here
                         consultationFee: true,
                         biography: true,
                         available: true,
@@ -31,12 +30,13 @@ router.get('/map', async (_req: Request, res: Response) => {
         // Group by floor
         const floorsMap = new Map<number, any[]>();
 
-        departments.forEach(dept => {
+        departments.forEach((dept) => {
             if (!floorsMap.has(dept.floor)) {
                 floorsMap.set(dept.floor, []);
             }
 
-            const doctorsFormatted = dept.doctors.map(doc => ({
+            // Explicitly type doc to avoid implicit any
+            const doctorsFormatted = dept.doctors.map((doc: any) => ({
                 id: doc.id,
                 name: doc.user.name,
                 cabin: doc.cabinNumber,
@@ -46,7 +46,7 @@ router.get('/map', async (_req: Request, res: Response) => {
                 bio: doc.biography
             }));
 
-            floorsMap.get(dept.floor).push({
+            floorsMap.get(dept.floor)!.push({
                 id: dept.id,
                 name: dept.name,
                 wing: dept.wing,
